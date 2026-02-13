@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=DM+Sans:wght@400;500;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #FFB3D9;
+            --soft-pink: #FFE5F1;
+            --coral: #FF8FAB;
+            --beige: #FFF5E4;
+            --soft-red: #FF6B9D;
+            --cream: #FFFEF9;
+            --text: #5A4A4A;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, var(--beige) 0%, var(--soft-pink) 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .bg-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 20px;
+            animation: float-up 15s infinite;
+            opacity: 0;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Cute doodles */
+        .doodle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .doodle-1 { top: 10%; left: 5%; font-size: 3rem; animation-delay: 0s; }
+        .doodle-2 { top: 20%; right: 8%; font-size: 2.5rem; animation-delay: 1s; }
+        .doodle-3 { top: 50%; left: 3%; font-size: 2rem; animation-delay: 2s; }
+        .doodle-4 { top: 70%; right: 5%; font-size: 3.5rem; animation-delay: 1.5s; }
+        .doodle-5 { top: 85%; left: 10%; font-size: 2rem; animation-delay: 0.5s; }
+        .doodle-6 { top: 40%; right: 10%; font-size: 2.5rem; animation-delay: 2.5s; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: var(--soft-red);
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0px rgba(255, 107, 157, 0.2);
+            line-height: 1.1;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: var(--text);
+            font-weight: 500;
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Button Container */
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+            position: relative;
+            min-height: 150px;
+        }
+
+        .btn {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.5s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, var(--soft-red) 0%, var(--coral) 100%);
+            color: white;
+            animation: pulse 2s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .btn-yes:hover {
+            box-shadow: 0 12px 30px rgba(255, 107, 157, 0.4);
+        }
+
+        .btn-yes.growing {
+            animation: none !important;
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #E8E8E8 0%, #D0D0D0 100%);
+            color: var(--text);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .btn-no:hover {
+            transform: scale(0.95);
+        }
+
+        .btn-no.running {
+            position: absolute !important;
+        }
+
+        /* Success Section */
+        .success-section {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+            animation: zoomIn 0.5s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .success-section.show {
+            display: block;
+        }
+
+        .success-section h2 {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--soft-red);
+            margin-bottom: 30px;
+        }
+
+        .success-section p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #FFB3D9;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 1000;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Love Letter Section */
+        .love-letter {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .envelope {
+            width: 200px;
+            height: 150px;
+            margin: 0 auto 30px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope-body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--pink) 100%);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--soft-red) 100%);
+            transform-origin: top;
+            transition: transform 0.5s ease;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .letter-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            margin-top: 20px;
+        }
+
+        .envelope.open ~ .letter-content {
+            max-height: 2000px;
+        }
+
+        .letter-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+            font-style: italic;
+            padding: 20px;
+            background: var(--cream);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* Photo Gallery */
+        .photo-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--soft-red);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .photo-placeholder {
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--pink) 100%);
+            border-radius: 15px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .photo-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .photo-content.revealed {
+            display: block;
+        }
+
+        .photo-content img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .photo-caption {
+            text-align: center;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Date Plans */
+        .date-plans {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .date-grid {
+            display: grid;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .date-item {
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--beige) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid var(--soft-red);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .date-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .date-item h3 {
+            color: var(--soft-red);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .date-item p {
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Surprises Section */
+        .surprises {
+            margin: 60px 0;
+        }
+
+        .surprise-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .surprise-grid > div {
+            flex: 0 0 auto;
+        }
+
+        .surprise-btn {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Fredoka', sans-serif;
+            box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
+        }
+
+        .surprise-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 165, 0, 0.4);
+        }
+
+        .surprise-message {
+            max-height: 0;
+            overflow: hidden;
+            background: var(--cream);
+            border-radius: 15px;
+            padding: 0 25px;
+            margin-top: 10px;
+            transition: all 0.5s ease;
+            color: var(--text);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .surprise-message.show {
+            max-height: 500px;
+            padding: 25px;
+            margin-top: 15px;
+        }
+
+        /* Final Question Section */
+        .final-question {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .final-question h2 {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--soft-red);
+            margin-bottom: 30px;
+        }
+
+        .final-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            position: relative;
+            min-height: 100px;
+        }
+
+        .btn-no-2 {
+            background: linear-gradient(135deg, #E8E8E8 0%, #D0D0D0 100%);
+            color: var(--text);
+            transition: all 0.2s ease;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .consequence-msg {
+            display: none;
+            background: linear-gradient(135deg, var(--soft-red) 0%, var(--coral) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        footer span {
+            display: inline-block;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .btn {
+                font-size: 1.2rem;
+                padding: 15px 35px;
+            }
+            
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .love-letter,
+            .date-plans,
+            .final-question {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="bg-hearts" id="bgHearts"></div>
+
+    <!-- Cute doodles -->
+    <div class="doodle doodle-1">💕</div>
+    <div class="doodle doodle-2">✨</div>
+    <div class="doodle doodle-3">💖</div>
+    <div class="doodle doodle-4">🌸</div>
+    <div class="doodle doodle-5">💝</div>
+    <div class="doodle doodle-6">🦋</div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Jency, Will You Be My Valentine? 💕</h1>
+            <p>Official invite from your long distance boyfriend.</p>
+
+            <!-- Button Container -->
+            <div class="button-container" id="buttonContainer">
+                <button class="btn btn-yes" id="yesBtn">YES! 💖</button>
+                <button class="btn btn-no" id="noBtn">No 😢</button>
+            </div>
+        </section>
+
+        <!-- Success Section (Hidden initially) -->
+        <section class="success-section" id="successSection">
+            <div style="font-size: 3rem; margin-bottom: 20px;">🎉</div>
+            <h2 style="font-size: 2.5rem; color: var(--soft-red); margin-bottom: 20px;">Good choice baby girl 😘💋</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 40px; color: var(--text);">You just unlocked unlimited hugs, kisses, and cuddles<br>(redeemable very soon I promise)</p>
+            
+            <div style="display: flex; gap: 20px; justify-content: center; margin: 40px 0; flex-wrap: wrap;">
+                <div style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 250px;">
+                    <div class="tenor-gif-embed" data-postid="14863710471758531526" data-share-method="host" data-aspect-ratio="1.06667" data-width="100%"><a href="https://tenor.com/view/hug-gif-14863710471758531526">Hug Sticker</a>from <a href="https://tenor.com/search/hug-stickers">Hug Stickers</a></div>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 250px;">
+                    <div class="tenor-gif-embed" data-postid="3465632787193566499" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/peach-goma-mochi-cat-mochi-mochi-kiss-peach-goma-love-gif-3465632787193566499">Peach Goma Mochi Cat GIF</a>from <a href="https://tenor.com/search/peach+goma-gifs">Peach Goma GIFs</a></div>
+                </div>
+            </div>
+            
+            <h3 style="font-size: 2rem; color: var(--soft-red); margin: 40px 0 30px;">Now you're stuck with me forever ∞</h3>
+            
+            <p style="font-size: 1.1rem; margin-bottom: 30px; color: var(--text);">Wait... do you want to change your mind? 🤔</p>
+            
+            <div style="position: relative; min-height: 200px; display: flex; justify-content: center; align-items: center;">
+                <button class="btn" id="noTakeBackBtn" style="background: linear-gradient(135deg, #E8E8E8 0%, #D0D0D0 100%); color: var(--text); font-size: 1.3rem; padding: 15px 40px; position: relative; transition: all 0.2s ease;">
+                    Actually... No 😈
+                </button>
+            </div>
+
+            <!-- Too Late Section (Hidden initially) -->
+            <div id="tooLateSection" style="display: none; background: white; border-radius: 30px; padding: 40px; margin: 30px auto; max-width: 600px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); animation: zoomIn 0.5s ease-out;">
+                <h2 style="font-size: 2.5rem; color: var(--soft-red); margin-bottom: 20px; font-family: 'Fredoka', sans-serif;">TOO LATE! 😤</h2>
+                <p style="font-size: 1.2rem; color: var(--text); margin-bottom: 30px;">You already said YES, which means:</p>
+                <div style="text-align: left; margin: 20px auto; font-size: 1.1rem; line-height: 2; max-width: 500px;">
+                    <div style="margin: 10px 0;">❌ No take-backs allowed</div>
+                    <div style="margin: 10px 0;">❌ You're legally mine now (I checked)</div>
+                    <div style="margin: 10px 0;">❌ Every "no" from now on = 10 extra kisses when we meet</div>
+                    <div style="margin: 10px 0;">✅ You're stuck with your irritating boyfriend FOREVER 😈</div>
+                </div>
+                <p style="font-size: 1.3rem; color: var(--soft-red); margin-top: 30px; font-weight: 600;">Deal with it 😘💕</p>
+            </div>
+        </section>
+
+        <!-- Love Letter Section -->
+        <section class="love-letter">
+            <div class="envelope" id="envelope">
+                <div class="envelope-body">
+                    <div class="envelope-flap"></div>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--text); font-size: 1.1rem; margin-bottom: 20px;">
+                📮 Click the envelope to read your letter
+            </p>
+            <div class="letter-content">
+                <div class="letter-text">
+                    My Dearest Veetuamma,
+                    <br><br>
+                    <span style="font-size: 2.5rem; font-weight: bold; color: var(--soft-red); float: left; line-height: 1; margin-right: 8px;">I</span> love the way you lift me up when I don't have a job at that moment and remind me I can achieve anything. In your words and belief, I find strength I didn't know I had.
+                    <br><br>
+                    <span style="font-size: 2.5rem; font-weight: bold; color: var(--soft-red); float: left; line-height: 1; margin-right: 8px;">L</span>oving you feels like home, especially when I'm alone or scared of ghost, you make me laughing with you.
+                    <br><br>
+                    <span style="font-size: 2.5rem; font-weight: bold; color: var(--soft-red); float: left; line-height: 1; margin-right: 8px;">Y</span>ou never give up, even when life gets heavy, and that strength melts my heart. Your responsibility, your hard work, and your courage make me admire you more every day.
+                    <br><br>
+                    You can ignore me, but it's impossible for me to ignore you.
+                    <br><br>
+                    Forever yours,<br>
+                    Yuvan Kishore ❤️
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Gallery Section -->
+        <section class="photo-section">
+            <h2 class="section-title">Our Special Moments 📸</h2>
+            <p style="text-align: center; margin-bottom: 40px; font-size: 1.1rem; color: var(--text);">
+                Click on each photo to reveal our memories together!
+            </p>
+
+            <div class="photo-grid">
+                <div class="photo-card" onclick="revealPhoto(this)">
+                    <div class="photo-placeholder" style="flex-direction: column; font-size: 20px; text-align: center; padding: 20px;">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🎁</div>
+                        <div>Forever my favourite picture</div>
+                    </div>
+                    <div class="photo-content">
+                        <img src="372147.jpeg" alt="Memory 1">
+                        <div class="photo-caption">
+                            The moment I got shy - when you caught me taking a screenshot 😊💕
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-card" onclick="revealPhoto(this)">
+                    <div class="photo-placeholder" style="flex-direction: column; font-size: 20px; text-align: center; padding: 20px;">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🎁</div>
+                        <div>Our first meet</div>
+                    </div>
+                    <div class="photo-content">
+                        <img src="372950.jpeg" alt="Memory 2">
+                        <div class="photo-caption">
+                            I still remember the day I met you. I should have held your hand and never let you go.<br>
+                            P.S. – Your cuteyyyyy face 😊💕
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-card" onclick="revealPhoto(this)">
+                    <div class="photo-placeholder" style="flex-direction: column; font-size: 20px; text-align: center; padding: 20px;">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🎁</div>
+                        <div>Your passenger of that day</div>
+                    </div>
+                    <div class="photo-content">
+                        <img src="IMG_6070.jpeg" alt="Memory 3">
+                        <div class="photo-caption">
+                            A peaceful hilltop, a beautiful church, and my little cutest guide explaining every little detail. One of my favorite days. 💕
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-card" onclick="revealPhoto(this)">
+                    <div class="photo-placeholder" style="flex-direction: column; font-size: 20px; text-align: center; padding: 20px;">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🎁</div>
+                        <div>The last ONE</div>
+                    </div>
+                    <div class="photo-content">
+                        <img src="IMG_7355.PNG" alt="Memory 4">
+                        <div class="photo-caption">
+                            You made me laugh endlessly, and the way you looked at me without even blinking made me so shy. Honestly, I didn't have the heart to say goodnight or Tata… because I never wanted that moment to end 💕
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Things I Love About You Section -->
+        <section class="date-plans">
+            <h2 class="section-title">Things I Love About You 🦋</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: var(--text); font-style: italic; max-width: 800px; margin: 0 auto 40px;">
+                Even when we're miles away, you're still my favorite person. Distance is just a number, but us? We're infinite. Every day I fall a little more, and I'm not even mad about it.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div style="background: linear-gradient(135deg, #FFB3D9 0%, #FF8FAB 100%); padding: 30px; border-radius: 20px; color: white; font-size: 1.05rem; line-height: 1.6; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    I like the way you hold my hand and that you don't let me go. In my mind, please don't take your hand — hold me till the end. 💕
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #FFB3D9 0%, #FF8FAB 100%); padding: 30px; border-radius: 20px; color: white; font-size: 1.05rem; line-height: 1.6; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    I love you because of the way you take responsibility. Even when so many things are happening in your life, you don't just shut down or give up. You face it. You fight for it. You work hard for what you want, and slowly you make it happen. That strength in you… it makes me melt. 💪❤️
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #FFB3D9 0%, #FF8FAB 100%); padding: 30px; border-radius: 20px; color: white; font-size: 1.05rem; line-height: 1.6; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    When you talk and start laughing, and your dimples pop up… damn. In that moment, I literally just want to squish your cheeks. And honestly? I badly want to place a soft kiss right there. You probably don't even realize how adorable you look when you smile like that… but it drives me crazy in the best way. 😍
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #FFB3D9 0%, #FF8FAB 100%); padding: 30px; border-radius: 20px; color: white; font-size: 1.05rem; line-height: 1.6; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    With you, I don't have to pretend to be anyone else — I can just be me. I really love that being with you. 💯
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #FFB3D9 0%, #FF8FAB 100%); padding: 30px; border-radius: 20px; color: white; font-size: 1.05rem; line-height: 1.6; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    You went on flight mode and disappeared from the world just to hear my birthday wish first. That day, I didn't just feel special… I felt truly important to you. 🎂✈️
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Soundtrack Section -->
+        <section class="date-plans">
+            <h2 class="section-title">Our Soundtrack 🎵</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: var(--text);">
+                Songs that make me think of you (aka I can't listen to these without smiling like an idiot)
+            </p>
+
+            <div style="display: grid; gap: 20px; max-width: 700px; margin: 0 auto;">
+                <iframe style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" 
+                    src="https://open.spotify.com/embed/track/5RR6Q4yCrbGiRCU5YbpNaY?utm_source=generator" 
+                    width="100%" height="152" frameBorder="0" allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy"></iframe>
+                
+                <iframe style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" 
+                    src="https://open.spotify.com/embed/track/4pFnIDmbwigWbeS7ohLqii?utm_source=generator" 
+                    width="100%" height="152" frameBorder="0" allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy"></iframe>
+                
+                <iframe style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" 
+                    src="https://open.spotify.com/embed/track/5eoah7D3oxCqz6n0clmC0I?utm_source=generator" 
+                    width="100%" height="152" frameBorder="0" allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy"></iframe>
+                
+                <iframe style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" 
+                    src="https://open.spotify.com/embed/track/5V8CiiIbI51Z4Sa4lxY9Pw?utm_source=generator" 
+                    width="100%" height="152" frameBorder="0" allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy"></iframe>
+                
+                <iframe style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" 
+                    src="https://open.spotify.com/embed/track/1AbSrAwrzuC3FcDXoYi3ED?utm_source=generator" 
+                    width="100%" height="152" frameBorder="0" allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <!-- Date Plans Section -->
+        <section class="date-plans">
+            <h2 class="section-title">Our Valentine's Date Ideas 🌹</h2>
+            <p style="text-align: center; margin-bottom: 20px; font-size: 1.1rem; color: var(--text);">
+                Here are some special plans I have for us!
+            </p>
+
+            <div class="date-grid">
+                <div class="date-item">
+                    <h3>🍕 Dinner Date</h3>
+                    <p>Let's enjoy a romantic dinner at your favorite restaurant. Good food, good company - what more could we ask for?</p>
+                </div>
+
+                <div class="date-item">
+                    <h3>🎬 Movie Night</h3>
+                    <p>Cozy movie marathon with all your favorite snacks. We can watch whatever you want - your choice!</p>
+                </div>
+
+                <div class="date-item">
+                    <h3>📸 Memory Re-Creation Date</h3>
+                    <p>Let's recreate one of our favorite memories — same place, same vibe — but this time with even more love.</p>
+                </div>
+
+                <div class="date-item">
+                    <h3>🎮 Game Night</h3>
+                    <p>Competitive game night! Loser has to cook dinner. (But honestly, we both win when we're together!)</p>
+                </div>
+
+                <div class="date-item">
+                    <h3>🎨 Creative Date</h3>
+                    <p>Painting, sketching, pottery, or even writing letters to each other and reading them out loud.</p>
+                </div>
+
+                <div class="date-item">
+                    <h3>🎁 Surprise Date</h3>
+                    <p>They say boys should plan the surprises… but I think it's your turn now 😌 Plan something for me — and it better be a real surprise!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Easter Egg Surprises Section -->
+        <section class="surprises">
+            <h2 class="section-title">Secret Surprises 🎁</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: var(--text);">
+                Click each button for a surprise message 😊
+            </p>
+
+            <div class="surprise-grid">
+                <div>
+                    <button class="surprise-btn" onclick="toggleSurprise(1)">Surprise #1 😇</button>
+                </div>
+
+                <div>
+                    <button class="surprise-btn" onclick="toggleSurprise(2)">Surprise #2 🥂</button>
+                </div>
+
+                <div>
+                    <button class="surprise-btn" onclick="toggleSurprise(3)">Surprise #3 😏</button>
+                </div>
+
+                <div>
+                    <button class="surprise-btn" onclick="toggleSurprise(4)">Surprise #4 🦋</button>
+                </div>
+
+                <div>
+                    <button class="surprise-btn" onclick="toggleSurprise(5)">Surprise #5 😈</button>
+                </div>
+            </div>
+
+            <!-- Messages appear below buttons -->
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="surprise-message" id="surprise1">
+                    I'm behaving a good boy 😇... but only because you're not here to distract me. 😏💕
+                </div>
+
+                <div class="surprise-message" id="surprise2">
+                    Looking forward to making many more beautiful memories with you. Here's to our future together! 🥂 but It's been 460 days since I last met you 🥲.
+                </div>
+
+                <div class="surprise-message" id="surprise3">
+                    😏 "You're dangerous, you know that? One smile from you and I forget what I was even arguing about."
+                </div>
+
+                <div class="surprise-message" id="surprise4">
+                    Even if I get to start-over hundreds of times, I will always choose you 🦋
+                </div>
+
+                <div class="surprise-message" id="surprise5">
+                    You're stuck with me now… there's no escape 😈
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Question -->
+        <section class="final-question">
+            <h2>So... are you ready for the best Valentine's Day ever? 💖</h2>
+            <p style="font-size: 1.2rem; margin: 20px 0;">One last question before we celebrate...</p>
+            
+            <div class="final-btns">
+                <button class="btn btn-yes" onclick="showConsequence()">Absolutely! 🎉</button>
+                <button class="btn btn-no btn-no-2" id="noBtn2">Maybe not...</button>
+            </div>
+
+            <div class="consequence-msg" id="consequenceMsg">
+                Oh, you have no idea what you just signed up for… but I promise you're going to love every second of it. 😈💕
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            Made with love by<br>
+            Yuvan <span>❤️</span>
+            <br><br>
+            <small>P.S. You're the best thing that's ever happened to me! 😊</small>
+        </footer>
+    </div>
+
+    <script>
+        // Floating hearts background
+        function createFloatingHearts() {
+            const container = document.getElementById('bgHearts');
+            const hearts = ['💕', '💖', '💗', '💝', '💘', '❤️'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart-float';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 17000);
+            }, 3000);
+        }
+
+        createFloatingHearts();
+
+        // NO button runs away and YES button grows
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        let noBtnAttempts = 0;
+
+        noBtn.addEventListener('mouseenter', () => {
+            noBtnAttempts++;
+            
+            // First time: make it absolute positioned
+            if (noBtnAttempts === 1) {
+                const rect = noBtn.getBoundingClientRect();
+                const containerRect = noBtn.parentElement.getBoundingClientRect();
+                noBtn.classList.add('running');
+                noBtn.style.left = (rect.left - containerRect.left) + 'px';
+                noBtn.style.top = (rect.top - containerRect.top) + 'px';
+            }
+            
+            const container = document.getElementById('buttonContainer');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Make NO button progressively smaller and faster
+            const newSize = Math.max(0.3, 1 - (noBtnAttempts * 0.15));
+            noBtn.style.transform = `scale(${newSize})`;
+            noBtn.style.transition = `all ${Math.max(0.1, 0.3 - noBtnAttempts * 0.02)}s ease`;
+            
+            // Random position
+            const maxX = containerRect.width - noBtn.offsetWidth;
+            const maxY = containerRect.height - noBtn.offsetHeight;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            
+            // Make YES button GROW BIGGER with each attempt
+            const yesSize = 1 + (noBtnAttempts * 0.2);
+            const yesPadding = 20 + (noBtnAttempts * 5);
+            yesBtn.classList.add('growing');
+            yesBtn.style.transform = `scale(${yesSize})`;
+            yesBtn.style.padding = `${yesPadding}px ${yesPadding * 2.5}px`;
+            
+            // If YES button gets really big, cover most of screen
+            if (noBtnAttempts >= 8) {
+                yesBtn.style.transform = `scale(${Math.min(yesSize, 3)})`;
+                yesBtn.style.fontSize = '2rem';
+                noBtn.style.opacity = '0';
+                noBtn.style.pointerEvents = 'none';
+            }
+        });
+
+        // YES button clicked
+        yesBtn.addEventListener('click', () => {
+            // Hide buttons
+            document.getElementById('buttonContainer').style.display = 'none';
+            
+            // Show success section
+            document.getElementById('successSection').classList.add('show');
+            
+            // Create confetti
+            createConfetti();
+            
+            // Scroll to success section
+            setTimeout(() => {
+                document.getElementById('successSection').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }, 100);
+        });
+
+        // Confetti animation
+        function createConfetti() {
+            const colors = ['#FFB3D9', '#FF8FAB', '#FF6B9D', '#FFE5F1', '#FFD700', '#FFA500'];
+            const shapes = ['circle', 'square'];
+            
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = shapes[Math.floor(Math.random() * shapes.length)] === 'circle' ? '50%' : '0';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 20);
+            }
+        }
+
+        // Love letter envelope
+        const envelope = document.getElementById('envelope');
+        envelope.addEventListener('click', () => {
+            envelope.classList.toggle('open');
+        });
+
+        // Photo reveal function
+        function revealPhoto(card) {
+            const placeholder = card.querySelector('.photo-placeholder');
+            const content = card.querySelector('.photo-content');
+            
+            if (!content.classList.contains('revealed')) {
+                placeholder.style.display = 'none';
+                content.classList.add('revealed');
+                
+                // Add sparkle effect
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        const sparkle = document.createElement('div');
+                        sparkle.textContent = '✨';
+                        sparkle.style.position = 'absolute';
+                        sparkle.style.left = Math.random() * 100 + '%';
+                        sparkle.style.top = Math.random() * 100 + '%';
+                        sparkle.style.animation = 'fadeIn 0.5s ease-out forwards';
+                        sparkle.style.fontSize = '1.5rem';
+                        card.appendChild(sparkle);
+                        
+                        setTimeout(() => sparkle.remove(), 1000);
+                    }, i * 50);
+                }
+            }
+        }
+
+        // Easter egg surprises
+        function toggleSurprise(num) {
+            const message = document.getElementById('surprise' + num);
+            message.classList.toggle('show');
+        }
+
+        // Second NO button (after saying YES) - with consequences!
+        const noBtn2 = document.getElementById('noBtn2');
+        let noBtn2Attempts = 0;
+
+        noBtn2.addEventListener('mouseenter', () => {
+            noBtn2Attempts++;
+            
+            // Make button run away
+            const parent = noBtn2.parentElement;
+            const parentRect = parent.getBoundingClientRect();
+            
+            const randomX = Math.random() * (parentRect.width - noBtn2.offsetWidth);
+            const randomY = Math.random() * 100 - 50; // Move vertically too
+            
+            noBtn2.style.left = randomX + 'px';
+            noBtn2.style.top = randomY + 'px';
+            noBtn2.style.transform = `scale(${Math.max(0.5, 1 - noBtn2Attempts * 0.1)}) rotate(${Math.random() * 360}deg)`;
+            
+            // After 3 attempts, show the consequence message
+            if (noBtn2Attempts >= 3) {
+                noBtn2.style.display = 'none';
+                document.getElementById('consequenceMsg').style.display = 'block';
+                document.getElementById('consequenceMsg').style.animation = 'bounceIn 0.6s ease-out';
+                
+                // Create celebration confetti
+                createConfetti();
+            }
+        });
+
+        noBtn2.addEventListener('click', () => {
+            // If they somehow manage to click it
+            noBtn2.style.display = 'none';
+            document.getElementById('consequenceMsg').style.display = 'block';
+            document.getElementById('consequenceMsg').style.animation = 'bounceIn 0.6s ease-out';
+            createConfetti();
+        });
+
+        // Show consequence directly when clicking yes
+        function showConsequence() {
+            document.getElementById('noBtn2').style.display = 'none';
+            document.getElementById('consequenceMsg').style.display = 'block';
+            document.getElementById('consequenceMsg').style.animation = 'bounceIn 0.6s ease-out';
+            createConfetti();
+        }
+
+        // Add hover effects to date items
+        const dateItems = document.querySelectorAll('.date-item');
+        dateItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.style.background = 'linear-gradient(135deg, var(--coral) 0%, var(--soft-red) 100%)';
+                item.style.color = 'white';
+                setTimeout(() => {
+                    item.style.background = 'linear-gradient(135deg, var(--soft-pink) 0%, var(--beige) 100%)';
+                    item.style.color = 'var(--text)';
+                }, 300);
+            });
+        });
+
+        // Too Late Button - Runs away then reveals section
+        const noTakeBackBtn = document.getElementById('noTakeBackBtn');
+        const tooLateSection = document.getElementById('tooLateSection');
+        let noTakeBackAttempts = 0;
+
+        noTakeBackBtn.addEventListener('mouseenter', () => {
+            noTakeBackAttempts++;
+            
+            // Make button run away for first 3 attempts
+            if (noTakeBackAttempts <= 3) {
+                const parent = noTakeBackBtn.parentElement;
+                const parentRect = parent.getBoundingClientRect();
+                
+                const randomX = Math.random() * (parentRect.width - noTakeBackBtn.offsetWidth) - noTakeBackBtn.offsetWidth/2;
+                const randomY = Math.random() * 100 - 50;
+                
+                noTakeBackBtn.style.position = 'absolute';
+                noTakeBackBtn.style.left = randomX + 'px';
+                noTakeBackBtn.style.top = randomY + 'px';
+                noTakeBackBtn.style.transform = `scale(${Math.max(0.7, 1 - noTakeBackAttempts * 0.1)}) rotate(${Math.random() * 20 - 10}deg)`;
+            }
+        });
+
+        noTakeBackBtn.addEventListener('click', () => {
+            // Only works after 3 attempts
+            if (noTakeBackAttempts > 3) {
+                // Hide button
+                noTakeBackBtn.style.display = 'none';
+                
+                // Show too late section
+                tooLateSection.style.display = 'block';
+                
+                // Create confetti
+                createConfetti();
+                
+                // Scroll to section
+                setTimeout(() => {
+                    tooLateSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }, 100);
+            }
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === tooLateModal) {
+                closeTooLateModal();
+            }
+        });
+    </script>
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+</body>
+</html>
